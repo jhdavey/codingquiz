@@ -1,0 +1,62 @@
+:root {
+    --main-color: purple;
+}
+
+body {
+    overflow: hidden;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 50px 5px 10px;
+}
+
+#titlebox {
+    font-size: Larger;
+    font-weight: bolder;
+    color: var(--main-color);
+    margin: 10px;
+}
+
+#highscorebutton, #startbutton {
+    background: none;
+    border: none;
+    color: var(--main-color);
+}
+#highscorebutton:hover, #startbutton:hover {
+    font-weight: bold;
+}
+
+#timerdisplay {
+    color: var(--main-color);
+}
+
+#maincontent {
+    width: 100%;
+    border: 1px solid var(--main-color);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#actionbox {
+    width: 50%;
+    border: solid 2px green;
+    padding: 10px;
+}
+
+button {
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    border: solid 2px var(--main-color);
+    border-radius: 5px;
+}
+
+button:hover {
+    border-color: green;
+}
+
+#scoreform {
+    margin: auto;
+}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timed Quiz Project</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    
+<!--Display link for high score in top left, and timer in top right-->
+<header>
+    <button id="highscorebutton" type="button">Highscores</button>
+    <p id="timerdisplay">&ThinSpace;</p>
+</header>
+
+<!--Display main content in center of page-->
+<section id="maincontent">
+
+    <!--Where questions/answers are loaded-->
+    <div id="actionbox">
+
+        <!--questions go in titlebox - intro h1 becomes hidden on startQuiz-->
+        <div id="titlebox">
+        <!-- <h1 id="intro">Coding Quiz Challenge</h1> -->
+        </div>
+
+        <!--answer options go in answerlist div, answer check response goes into response p - intro-p hidden on startQuiz-->
+            <p id="intro-p">Welcome to the JavaScript Fundamentals Quiz Challenge!<br /><br />
+                Answer the questions as quickly as possible. You have 60 seconds to finish the quiz<br /><br />
+                If you answer a question incorrectly, you will lose 5 seconds.<br /><br />
+                The quiz will end once you've answered every question, or the time has run out!<br /><br />
+                Good Luck!</p>
+                
+        <!--Start button-->
+        <button type="button" id="startbutton">Start Quiz</button>
+        
+        <ul id="answerlist"></ul>
+
+        <ol id="highscorelist"></ol>
+
+        <p id="responder"></p>
+
+        <form id="scoreform">
+            <label>Save High Score!</label><br>
+            <input type="text" id="initials" placeholder="Initial here" required><br>
+            <input id="submit" type="submit" value="submit">
+          </form> 
+
+
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>
