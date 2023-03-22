@@ -1,29 +1,40 @@
 :root {
-    --main-color: purple;
+    --main-color: white;
 }
 
 body {
     overflow: hidden;
+    background-color: steelblue;
+}
+
+p {
+    color: var(--main-color);
+    line-height: 1.5;
 }
 
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
     margin: 5px 50px 5px 10px;
 }
 
 #titlebox {
-    font-size: Larger;
+    font-size: 24px;
     font-weight: bolder;
     color: var(--main-color);
     margin: 10px;
 }
 
-#highscorebutton, #startbutton {
+#highscorebutton, #startbutton, #timerdisplay {
     background: none;
-    border: none;
+    margin: 5px 5px 5px 5px;
+    padding: 5px;
+    width: 100px;
+    border: solid 2px var(--main-color);
+    border-radius: 5px;
     color: var(--main-color);
 }
+
 #highscorebutton:hover, #startbutton:hover {
     font-weight: bold;
 }
@@ -34,7 +45,6 @@ header {
 
 #maincontent {
     width: 100%;
-    border: 1px solid var(--main-color);
     display: flex;
     justify-content: center;
     text-align: center;
@@ -42,21 +52,22 @@ header {
 
 #actionbox {
     width: 50%;
-    border: solid 2px green;
     padding: 10px;
-}
-
-button {
-    margin: 5px 5px 5px 5px;
-    padding: 5px;
-    border: solid 2px var(--main-color);
-    border-radius: 5px;
-}
-
-button:hover {
-    border-color: green;
 }
 
 #scoreform {
     margin: auto;
+    color: var(--main-color);
+}
+
+#highscorelist {
+    color: var(--main-color);
+}
+
+
+
+button {
+    display: block;
+    margin: 10px;
+    text-align: center;
 }

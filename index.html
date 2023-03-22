@@ -11,8 +11,9 @@
     
 <!--Display link for high score in top left, and timer in top right-->
 <header>
+    <button type="button" id="startbutton">Start Quiz</button>
     <button id="highscorebutton" type="button">Highscores</button>
-    <p id="timerdisplay">&ThinSpace;</p>
+    <p id="timerdisplay">Timer: &ThinSpace;</p>
 </header>
 
 <!--Display main content in center of page-->
@@ -27,14 +28,11 @@
         </div>
 
         <!--answer options go in answerlist div, answer check response goes into response p - intro-p hidden on startQuiz-->
-            <p id="intro-p">Welcome to the JavaScript Fundamentals Quiz Challenge!<br /><br />
-                Answer the questions as quickly as possible. You have 60 seconds to finish the quiz<br /><br />
-                If you answer a question incorrectly, you will lose 5 seconds.<br /><br />
-                The quiz will end once you've answered every question, or the time has run out!<br /><br />
+            <p id="intro-p">Welcome to the JavaScript Fundamentals Quiz Challenge!<br />
+                Answer the questions as quickly as possible. You have 60 seconds to finish the quiz<br />
+                If you answer a question incorrectly, you will lose 5 seconds.<br />
+                The quiz will end once you've answered every question, or the time has run out!<br />
                 Good Luck!</p>
-                
-        <!--Start button-->
-        <button type="button" id="startbutton">Start Quiz</button>
         
         <ul id="answerlist"></ul>
 
@@ -48,10 +46,11 @@
             <input id="submit" type="submit" value="submit">
           </form> 
 
-
     </div>
 
 </section>
+
+
 
 <script src="script.js"></script>
 </body>

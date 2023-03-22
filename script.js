@@ -27,15 +27,23 @@ response.hidden = true;
 scoreForm.hidden = true;
 highScoreList.hidden = true;
 
-//Start Quiz button hides title div, shows Q1 div
+//High Scores button goes straight to high scores list
 var startBtn = document.getElementById('startbutton');
 startBtn.addEventListener('click', startQuiz);
+
+//Start Quiz button hides title div, shows Q1 div
+var highscoreBtn = document.getElementById('highscorebutton');
+highscoreBtn.addEventListener('click', (e) => {
+    answerList.hidden = true;
+    showScores();
+});
 
 //Function to begin quiz - hide intro elements
 function startQuiz() {
     introP.hidden = true;
-    startBtn.hidden = true;
     response.hidden = false;
+    startBtn.innerText = 'Good Luck!';
+    startBtn.disabled = true;
     showPrompts();
     //Start timer at 60 seconds
     startCountdown(counter);
