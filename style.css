@@ -57,8 +57,11 @@ header {
 }
 
 #scoreform {
-    margin: auto;
     color: var(--main-color);
+}
+
+#initials {
+    margin: 10px;
 }
 
 #highscorelist {
