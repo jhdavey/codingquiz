@@ -147,12 +147,17 @@ document.getElementById('submit').addEventListener('click', function(e) {
 //Hide submit score form, Sort leaderboard, Show leaderboard & retry button
 function showScores() {
     scoreForm.hidden = true;
+    highscoreBtn.disabled = true;
+    startBtn.disabled = true;
+    startBtn.innerText = 'Refresh to retry';
     introP.hidden = true;
     highScoreList.hidden = false;
     titleBox.innerText = 'HIGH SCORES';
+    pulledBoard = localStorage.getItem('lead');
+    lead = JSON.parse(pulledBoard);
     var sliceLead = lead.slice(0, 10);
     var sortLead= sliceLead.sort((a, b) => {
-        a < b;
+        a - b;
     });
     sortLead.forEach(sortLead => {
         var scoreListEntry = document.createElement('li');
