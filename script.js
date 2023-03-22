@@ -9,6 +9,7 @@ var correctAns = 4;
 var count = 0;
 var counter = 60;
 var savedInitials = '';
+var gameOverShown = false;
 var introHead = document.getElementById('intro');
 var introP = document.getElementById('intro-p');
 var titleBox = document.getElementById('titlebox');
@@ -18,6 +19,7 @@ var timerDisplay = document.getElementById('timerdisplay');
 var scoreForm = document.getElementById('scoreform');
 var submitButton = document.getElementById('submitbutton');
 var highScoreList = document.getElementById('highscorelist');
+
 
 //Display title on intro page
 titleBox.innerText = "JavaScript Coding Quiz Challenge";
@@ -55,7 +57,9 @@ function startCountdown() {
         timerDisplay.innerText = "Timer: " + counter;
       counter--;
       //If timer gets to 0, display GAME OVER, send user to enter score function
-      if (counter < 0 ) {
+      if (counter < 0 && gameOverShown === true) {
+        clearInterval(interval);
+      } else if (counter < 0) {
         clearInterval(interval);
         gameOver();
       }
@@ -105,6 +109,7 @@ function showPrompts() {
 //Game over screen at end of questions, or time hits 0
 function gameOver() {
     //Show game over and final score
+    gameOverShown = true;
     introP.hidden = false;
     answerList.hidden = true;
     titleBox.innerText = 'Game Over!';
@@ -115,21 +120,26 @@ function gameOver() {
 //Save score
 document.getElementById('submit').addEventListener('click', function(e) {
     e.preventDefault();
+    gameOverShown = true;
     //Pull scores from LocalStorage
         pulledBoard = localStorage.getItem('lead');
     //If no board, save score, add to leaderboard, send to localStorage
     if (!pulledBoard) {
         savedInitials = document.getElementById('initials').value;
-        lead.push({[savedInitials]: score});
+        var scoreObj = {name: savedInitials,
+                        savedScore: score} 
+        lead.push(scoreObj);
         window.localStorage.setItem('lead', JSON.stringify(lead));
         showScores();
     } else {
         //If leaderboard exists, pull board update, send back to localStorage
         lead = JSON.parse(pulledBoard);
         savedInitials = document.getElementById('initials').value;
-        lead.push({[savedInitials]: score});
+        var scoreObj = {name: savedInitials,
+            savedScore: score} 
+            lead.push(scoreObj);
+            showScores();
         window.localStorage.setItem('lead', JSON.stringify(lead));
-        showScores();
         }
     }
 );
@@ -142,21 +152,18 @@ function showScores() {
     titleBox.innerText = 'HIGH SCORES';
     var sliceLead = lead.slice(0, 10);
     var sortLead= sliceLead.sort((a, b) => {
-        a - b;
+        a < b;
     });
+    sortLead.forEach(sortLead => {
+        var scoreListEntry = document.createElement('li');
+        scoreListEntry.textContent = sortLead.name + ': ' + sortLead.savedScore;
+        highScoreList.append(scoreListEntry);
+    })
+    // var retry = document.createElement('button');
+    // retry.innerText = "Retry?";
+    // retry.addEventListener('click', startQuiz());
+    // highScoreList.append(retry);
 
-    var keys = Object.values(sortLead);
-   console.log(keys);
-    highScoreList.append(keys.join('\n'));
-    
-    
-    
-    
-    
-    
-    // var stringLead = JSON.stringify(sortLead);
-
-  
     }
 
 
