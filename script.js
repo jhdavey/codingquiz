@@ -1,12 +1,15 @@
 //Start score at 100, decrement by 10pts per wrong answer
 var score = 0;
 var numberOfHighScores = 10;
-var leaderBoard = {};
+var leaderBoard = [];
+var pulledBoard = [];
+var obj = {};
 var question = '';
 var options = '';
 var correctAns = 4;
 var count = 0;
 var counter = 60;
+var savedInitials = '';
 var introHead = document.getElementById('intro');
 var introP = document.getElementById('intro-p');
 var titleBox = document.getElementById('titlebox');
@@ -76,7 +79,7 @@ function showPrompts() {
                 gameOver();
             } else {
                 //If answered wrong subtract 5 seconds from clock
-                startCountdown(counter -= 5); //After each run, decreases by additional seconds //TODO
+                counter -= 5;
                 response.innerText = "Wrong!";
             }
             //Make response disappear after 2 seconds
@@ -107,18 +110,20 @@ function gameOver() {
 document.getElementById('submit').addEventListener('click', function(e) {
     e.preventDefault();
     //Pull scores from LocalStorage
-    var pulledBoard = localStorage.getItem('leaderBoard');
+        pulledBoard = localStorage.getItem('leaderBoard');
     //If no board, save score, add to leaderboard, send to localStorage
     if (!pulledBoard) {
-        var initials = document.getElementById('initials').value;
-        leaderBoard[initials] = score;
+        var savedInitials = document.getElementById('initials').value;
+        obj[savedInitials] = score;
+        leaderBoard.push(obj);
         window.localStorage.setItem('leaderBoard', JSON.stringify(leaderBoard));
         showScores();
     } else {
         //If leaderboard exists, pull board update, send back to localStorage
         leaderBoard = JSON.parse(pulledBoard);
-        var initials = document.getElementById('initials').value;
-        leaderBoard[initials] = score;
+        var savedInitials = document.getElementById('initials').value;
+        obj[savedInitials] = score;
+        leaderBoard.push(obj);
         window.localStorage.setItem('leaderBoard', JSON.stringify(leaderBoard));
         showScores();
         }
@@ -130,19 +135,15 @@ function showScores() {
     scoreForm.hidden = true;
     introP.hidden = true;
     highScoreList.hidden = false;
-    titleBox.innerText = 'HIGH SCORES';
-    leaderBoard = JSON.stringify(leaderBoard);
-    // console.log(typeof leaderBoard);
-    // console.log(leaderBoard);
-    highScoreList.innerText = leaderBoard;
-    // var topTen = leaderBoard.splice(0, 10);
 
-    // highScoreList.innerText = leaderBoard.join('\n');
-    //SORT???
+    titleBox.innerText = 'HIGH SCORES';;
+    for (var i = 0; i < 10; i++) {
+        JSON.stringify(leaderBoard);
+        var leaderList = document.createElement('li');
+        leaderList.textContent = leaderBoard[i];
+        highScoreList.append(leaderList);
+    }
 }
-
-
-
 
 //Question & answer array
 questionAnswerArray = [
