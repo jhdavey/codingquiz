@@ -156,8 +156,8 @@ function showScores() {
     pulledBoard = localStorage.getItem('lead');
     lead = JSON.parse(pulledBoard);
     var sliceLead = lead.slice(0, 10);
-    var sortLead= sliceLead.sort((a, b) => {
-        a - b;
+    var sortLead = sliceLead.sort((a, b) => {
+        b[1] - a[1]; //TODO STILL NOT SORTING
     });
     sortLead.forEach(sortLead => {
         var scoreListEntry = document.createElement('li');
