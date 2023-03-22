@@ -1,9 +1,8 @@
 //Start score at 100, decrement by 10pts per wrong answer
 var score = 0;
 var numberOfHighScores = 10;
-var leaderBoard = [];
+var lead = [];
 var pulledBoard = [];
-var obj = {};
 var question = '';
 var options = '';
 var correctAns = 4;
@@ -102,7 +101,6 @@ function gameOver() {
     answerList.hidden = true;
     titleBox.innerText = 'Game Over!';
     introP.innerText = "Your Score is:\n" + score;
-    //Save high score
     scoreForm.hidden = false;
 }
 
@@ -110,21 +108,19 @@ function gameOver() {
 document.getElementById('submit').addEventListener('click', function(e) {
     e.preventDefault();
     //Pull scores from LocalStorage
-        pulledBoard = localStorage.getItem('leaderBoard');
+        pulledBoard = localStorage.getItem('lead');
     //If no board, save score, add to leaderboard, send to localStorage
     if (!pulledBoard) {
-        var savedInitials = document.getElementById('initials').value;
-        obj[savedInitials] = score;
-        leaderBoard.push(obj);
-        window.localStorage.setItem('leaderBoard', JSON.stringify(leaderBoard));
+        savedInitials = document.getElementById('initials').value;
+        lead.push({[savedInitials]: score});
+        window.localStorage.setItem('lead', JSON.stringify(lead));
         showScores();
     } else {
         //If leaderboard exists, pull board update, send back to localStorage
-        leaderBoard = JSON.parse(pulledBoard);
-        var savedInitials = document.getElementById('initials').value;
-        obj[savedInitials] = score;
-        leaderBoard.push(obj);
-        window.localStorage.setItem('leaderBoard', JSON.stringify(leaderBoard));
+        lead = JSON.parse(pulledBoard);
+        savedInitials = document.getElementById('initials').value;
+        lead.push({[savedInitials]: score});
+        window.localStorage.setItem('lead', JSON.stringify(lead));
         showScores();
         }
     }
@@ -135,15 +131,26 @@ function showScores() {
     scoreForm.hidden = true;
     introP.hidden = true;
     highScoreList.hidden = false;
+    titleBox.innerText = 'HIGH SCORES';
+    var sliceLead = lead.slice(0, 10);
+    var sortLead= sliceLead.sort((a, b) => {
+        a - b;
+    });
 
-    titleBox.innerText = 'HIGH SCORES';;
-    for (var i = 0; i < 10; i++) {
-        JSON.stringify(leaderBoard);
-        var leaderList = document.createElement('li');
-        leaderList.textContent = leaderBoard[i];
-        highScoreList.append(leaderList);
+    var keys = Object.values(sortLead);
+   console.log(keys);
+    highScoreList.append(keys.join('\n'));
+    
+    
+    
+    
+    
+    
+    // var stringLead = JSON.stringify(sortLead);
+
+  
     }
-}
+
 
 //Question & answer array
 questionAnswerArray = [
