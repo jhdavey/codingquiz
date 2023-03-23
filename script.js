@@ -18,6 +18,7 @@ var response = document.getElementById('responder');
 var timerDisplay = document.getElementById('timerdisplay');
 var scoreForm = document.getElementById('scoreform');
 var submitButton = document.getElementById('submitbutton');
+var retry = document.getElementById('retry');
 var highScoreList = document.getElementById('highscorelist');
 
 
@@ -28,6 +29,7 @@ titleBox.innerText = "JavaScript Coding Quiz Challenge";
 response.hidden = true;
 scoreForm.hidden = true;
 highScoreList.hidden = true;
+retry.style = "display: none;"
 
 //High Scores button goes straight to high scores list
 var startBtn = document.getElementById('startbutton');
@@ -46,6 +48,7 @@ function startQuiz() {
     response.hidden = false;
     startBtn.innerText = 'Good Luck!';
     startBtn.disabled = true;
+    startBtn.style = "display: none;"
     showPrompts();
     //Start timer at 60 seconds
     startCountdown(counter);
@@ -115,7 +118,16 @@ function gameOver() {
     titleBox.innerText = 'Game Over!';
     introP.innerText = "Your Score is:\n" + score;
     scoreForm.hidden = false;
-}
+    function loadRetryButton() {
+        retry.style = "display: block;"
+        retry.addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.reload();
+            retry.style = "display: block;"
+            })
+        }
+        loadRetryButton();
+    }
 
 //Save score
 document.getElementById('submit').addEventListener('click', function(e) {
@@ -136,40 +148,38 @@ document.getElementById('submit').addEventListener('click', function(e) {
         lead = JSON.parse(pulledBoard);
         savedInitials = document.getElementById('initials').value;
         var scoreObj = {name: savedInitials,
-            savedScore: score} 
+            savedScore: score};
             lead.push(scoreObj);
+            window.localStorage.setItem('lead', JSON.stringify(lead));
             showScores();
-        window.localStorage.setItem('lead', JSON.stringify(lead));
         }
     }
 );
 
 //Hide submit score form, Sort leaderboard, Show leaderboard & retry button
 function showScores() {
-    scoreForm.hidden = true;
+    scoreForm.style = "display: none;"
     highscoreBtn.disabled = true;
-    startBtn.disabled = true;
-    startBtn.innerText = 'Refresh to retry';
     introP.hidden = true;
     highScoreList.hidden = false;
     titleBox.innerText = 'HIGH SCORES';
     pulledBoard = localStorage.getItem('lead');
     lead = JSON.parse(pulledBoard);
+    lead.sort((a, b) => {
+        if (a.savedScore > b.savedScore) {
+            return -1;
+        } else if (a.savedScore < b.savedScore) {
+            return 1;
+        } else { 
+            return 0;
+        }})
     var sliceLead = lead.slice(0, 10);
-    var sortLead = sliceLead.sort((a, b) => {
-        b[1] - a[1]; //TODO STILL NOT SORTING
-    });
-    sortLead.forEach(sortLead => {
+    sliceLead.forEach(sliceLead => {
         var scoreListEntry = document.createElement('li');
-        scoreListEntry.textContent = sortLead.name + ': ' + sortLead.savedScore;
+        scoreListEntry.textContent = sliceLead.name + ': ' + sliceLead.savedScore;
         highScoreList.append(scoreListEntry);
     })
-    // var retry = document.createElement('button');
-    // retry.innerText = "Retry?";
-    // retry.addEventListener('click', startQuiz());
-    // highScoreList.append(retry);
-
-    }
+}
 
 
 //Question & answer array

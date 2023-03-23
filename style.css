@@ -26,7 +26,7 @@ header {
     margin: 10px;
 }
 
-#highscorebutton, #startbutton, #timerdisplay {
+#highscorebutton, #startbutton, #timerdisplay, #retry {
     background: none;
     margin: 5px 5px 5px 5px;
     padding: 5px;
@@ -36,7 +36,7 @@ header {
     color: var(--main-color);
 }
 
-#highscorebutton:hover, #startbutton:hover {
+#highscorebutton:hover, #startbutton:hover, #retry:hover {
     font-weight: bold;
 }
 
